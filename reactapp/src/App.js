@@ -5,11 +5,6 @@ const App = () => {
   const [scanning, setScanning] = useState(false);
   const [connecting, setConnecting] = useState(false);
 
-  // Function to handle the "Find Devices" button click
-  const handleFindDevices = () => {
-    setScanning(true);
-  };
-
   // Function to handle the "Connect" button click
   const handleConnectToDevice = (device) => {
     setScanning(false);
@@ -26,16 +21,6 @@ const App = () => {
   return (
     <div>
       <h1>Bluetooth Device Manager</h1>
-      <button onClick={handleFindDevices} disabled={scanning || connecting}>
-        {scanning ? 'Scanning...' : 'Find Devices'}
-      </button>
-      <button disabled={scanning || !connecting} onClick={handleDisconnect}>
-        Disconnect
-      </button>
-      {scanning && <p>Scanning for devices...</p>}
-      {connecting && (
-        <p>Connecting to device...</p>
-      )}
       <BluetoothComponent
         onConnect={handleConnectToDevice}
         onDisconnect={handleDisconnect}
