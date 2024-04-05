@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, FlatList } from 'react-native';
-import { BleManager } from 'react-native-ble-manager';
+import { BleManager } from 'react-native-ble-plx'
 
 const App = () => {
   const [devices, setDevices] = useState([]);
