@@ -46,7 +46,9 @@ async def get_mac():
     # Starting Bluetooth Scan
     devices = await scan_devices()
     display_devices(devices)
+    print("select master")
     m_selected_device = select_option(devices)
+    print("select slave")
     s_selected_device = select_option(devices)
 
     return m_selected_device, s_selected_device
